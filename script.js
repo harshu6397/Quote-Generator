@@ -1,9 +1,31 @@
-// Get Quotes from APi
-
 // Quotes Array
 let parsedData = []
 
+// Fetch the data from the API
+async function getQuotes() {
+    // const url = "https://type.fit/api/quotes";
+    const url = `https://quotable.io/quotes?limit=150&page=${Math.floor(Math.random() * (Math.ceil(2043 / 150)))}`;
+    try {
+        showLoading();
+        const data = await fetch(url);
+        parsedData = await data.json();
+        parsedData = parsedData['results'];
+        CompleteLoading();
+        newQuote();
+    }
+    catch (error) {
+        getQuotes();
+        console.log(error)
+    }
+}
+
+// Get Quotes on Load
+getQuotes();
+
 // Show new Quote
+let newQuoteButton = document.getElementById("new-quote");
+newQuoteButton.addEventListener("click", newQuote);
+
 function newQuote() {
 
     // Pick a random Quote from the array
@@ -32,14 +54,13 @@ function newQuote() {
     // Copy the Quote
     let copyBtn = document.getElementById("copy");
     copyBtn.addEventListener("click", () => {
-    console.log("Copy");
-    const quote = document.getElementById("quote").textContent;
-    const author = document.getElementById("author").textContent;
-    const copiedQuote = `${quote}${author.slice(1)}`;
-    navigator.clipboard.writeText(copiedQuote);
-    document.getElementById("copy-container").innerHTML = "Copied!";
+        const quote = document.getElementById("quote").textContent;
+        const author = document.getElementById("author").textContent;
+        const copiedQuote = `${quote}${author.slice(1)}`;
+        navigator.clipboard.writeText(copiedQuote);
+        document.getElementById("copy-container").innerHTML = "Copied!";
 
-})
+    })
 }
 
 // Show loading
@@ -54,29 +75,7 @@ function CompleteLoading() {
     document.getElementById("loader").hidden = true;
 }
 
-// Fetch the data from the API
-async function getQuotes() {
-    // const url = "https://type.fit/api/quotes";
-    const url = `https://quotable.io/quotes?limit=150&page=${Math.floor(Math.random() * (Math.ceil(2043/150)))}`;
-    try {
-        showLoading();
-        const data = await fetch(url);
-        parsedData = await data.json();
-        parsedData = parsedData['results'];
-        CompleteLoading();
-        newQuote();
-    }
-    catch (error) {
-        // alert("Error: " + error);
-        console.log(error)
-    }
-}
 
-// Get Quotes on Load
-getQuotes();
-
-let newQuoteButton = document.getElementById("new-quote");
-newQuoteButton.addEventListener("click", newQuote);
 
 // Tweet the Quote
 function tweetQuote() {
