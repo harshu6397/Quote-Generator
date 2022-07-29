@@ -53,6 +53,26 @@ body {
     font-size: 4rem;
 } 
 
+#copy-container{
+    float: right;
+    font-weight: bold;
+}
+
+.fa-copy{
+    float: right;
+    font-size: 1.5em;
+    color: rgb(17, 17, 17);
+}
+
+.fa-copy:hover{
+    color: rgb(185, 24, 172);
+}
+
+.fa-copy:active{
+    transform: translate(0, 0.3rem);
+    box-shadow: 0 0.1rem rgba(121, 121, 121, .65); 
+}
+
 #quote-author{
     font-size: 1.2rem;
     font-weight: 700;
