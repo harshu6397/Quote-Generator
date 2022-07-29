@@ -21,6 +21,15 @@ body {
     justify-content: center;
 }
 
+.container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    font-size: 3em;
+    color: rgb(185, 24, 172);
+}
+
 .quote-container{
     display: inline;
     width: auto;
