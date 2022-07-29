@@ -8,7 +8,8 @@ function newQuote() {
     // Pick a random Quote from the array
     let random = Math.floor(Math.random() * parsedData.length);
     const quote = parsedData[random];
-    let quoteText = quote.text;
+    console.log(quote);
+    let quoteText = quote.content;
     let quoteAuthor = quote.author;
 
     // Check whether the quote has length greater than 50 characters
@@ -22,7 +23,7 @@ function newQuote() {
     // Display the Quote
     let quoteTextHTML = `<i class="fas fa-quote-left"></i>
                          <span id="quote">${quoteText}</span>`;
-    let quoteAuthorHTML = `<span id="author">   &#8208; ${quoteAuthor === null ? "Unknown" : quoteAuthor}</span>`;
+    let quoteAuthorHTML = `<span id="author">   &#8722; ${quoteAuthor === null ? "Unknown" : quoteAuthor}</span>`;
     document.getElementById("quote-text").innerHTML = quoteTextHTML;
     document.getElementById("quote-author").innerHTML = quoteAuthorHTML;
 }
@@ -41,11 +42,13 @@ function CompleteLoading() {
 
 // Fetch the data from the API
 async function getQuotes() {
-    const url = "https://type.fit/api/quotes";
+    // const url = "https://type.fit/api/quotes";
+    const url = `https://quotable.io/quotes?limit=150&page=${Math.floor(Math.random() * (Math.ceil(2043/150)))}`;
     try {
         showLoading();
         const data = await fetch(url);
         parsedData = await data.json();
+        parsedData = parsedData['results'];
         CompleteLoading();
         newQuote();
     }
